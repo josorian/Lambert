@@ -3,6 +3,7 @@
 #include "vector.h"
 #include "seebatt.h"
 #include "seebattk.h"
+#include "LambertBattin.h"
 
 using namespace std;
 
@@ -20,7 +21,7 @@ int main() {
     } else {
         cout << "Test norm(): failed" << endl;
     }
-    vector<double> c = cross(v1, v2,3,3);
+    vector<double> c = cross(v1, v2, 3, 3);
     if (c[0] - (v1[0] * v2[0] - v1[2] * v2[1]) < pow(10, 12) &&
         c[1] - (v1[2] * v2[0] - v1[0] * v2[2]) < pow(10, 12) & c[2] - (v1[0] * v2[1] - v1[1] * v2[0]) < pow(10, 12)) {
         cout << "Test cross(): passed" << endl;
@@ -42,19 +43,32 @@ int main() {
     } else {
         cout << seebatt(10000.0) << endl;
     }
-    if (seebattk(0.0) - 0.333333 <= pow(10,-5)){
-        cout<<"seebattk(0.0) es correcto"<<endl;
-    }else{
-        cout<<"seebattk(0.0) falla"<<endl;
+    if (seebattk(0.0) - 0.333333 <= pow(10, -5)) {
+        cout << "seebattk(0.0) es correcto" << endl;
+    } else {
+        cout << "seebattk(0.0) falla" << endl;
     }
-    if (seebattk(0.0) - 0.333333 <= pow(10,-5)){
-        cout<<"seebattk(0.0) es correcto"<<endl;
-    }else{
-        cout<<"seebattk(0.0) falla"<<endl;
+    if (seebattk(0.0) - 0.333333 <= pow(10, -5)) {
+        cout << "seebattk(0.0) es correcto" << endl;
+    } else {
+        cout << "seebattk(0.0) falla" << endl;
     }
-    if (seebattk(100.0) - 0.0211 <= pow(10,-5)){
-        cout<<"seebattk(100.0) es correcto"<<endl;
-    }else{
-        cout<<"seebattk(100.0) falla"<<endl;
+    if (seebattk(100.0) - 0.0211 <= pow(10, -5)) {
+        cout << "seebattk(100.0) es correcto" << endl;
+    } else {
+        cout << "seebattk(100.0) falla" << endl;
     }
+    vector<double> r1 = {20.0e6, 20.0e6, 0};
+    vector<double> r2 = {-20.0e6, 10.0e6, 0};
+    double tof = 1.0 * 86400;
+    vector<double> v3 = {0, 0, 0};
+    vector<double> v4 = {0, 0, 0};
+    LambertBattin(r1, r2, "retro", tof, v3, v4);
+    if (v3[0]-4144.30717367665 <=pow(10,-5) && v3[1]- -1571.15318557575 <=pow(10,-5) && v3[2]-0 <=pow(10,-5) && v4[0]-3223.39508300486 <=pow(10,-5) && v4[1]-4103.76281774997 <=pow(10,-5) && v4[2]-0 <=pow(10,-5) ){
+        cout<<"LamberBattin es correcto"<<endl;
+    }
+    else{
+        cout<<"LamberBattin falla"<<endl;
+    }
+
 }
